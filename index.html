@@ -13,19 +13,27 @@
             <dl>
                 <dt>작업 제목</dt>
                 <dd>
-                    <input type="text" name="title">
+                    <input type="text" name="title" />
+                    <div class="errpr dn" id="error-title"></div>
                 </dd>
+            </dl>
+            <dl>
+                <dt>마감일</dt>
                 <dd>
-                    <input type="date" name="deadline" placeholder="마감일" />
+                    <input type="date" name="deadline" />
+                    <div class="errpr dn" id="error-deadline"></div>
                 </dd>
             </dl>
             <dl>
                 <dt>작업 내용</dt>
                 <dd>
                     <textarea name="description"></textarea>
+                    <div class="errpr dn" id="error-description"></div>
                 </dd>
             </dl>
             <button type="submit">등록하기</button>
         </form>
+        
+        <ul class="items"></ul>
     </body>
 </html>
