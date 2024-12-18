@@ -3,8 +3,29 @@
     <head>
         <meta charset="UTF-8">
         <title>나의 할 일</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         <script src="js/todo.js"></script>
     </head>
-    <body></body>
+    <body>
+        <h1>나의 할 일</h1>
+        <form name="frmTodo" autocomplete="off">
+            <dl>
+                <dt>작업 제목</dt>
+                <dd>
+                    <input type="text" name="title">
+                </dd>
+                <dd>
+                    <input type="date" name="deadline" placeholder="마감일" />
+                </dd>
+            </dl>
+            <dl>
+                <dt>작업 내용</dt>
+                <dd>
+                    <textarea name="description"></textarea>
+                </dd>
+            </dl>
+            <button type="submit">등록하기</button>
+        </form>
+    </body>
 </html>
