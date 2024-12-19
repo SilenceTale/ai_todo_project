@@ -19,7 +19,16 @@ const todo = {
     this.render();
   },
   // 작업 목록 출력, 갱신
-  render() {},
+  render() {
+    const itemsEl = document.querySelector(".items");
+    itemsEl.innerHTML = "";
+
+    for (const { seq, title, description, deadline } of this.items) {
+      const li = document.createElement("li");
+      li.append(title);
+      itemsEl.append(li);
+    }
+  },
 };
 
 window.addEventListener("DOMContentLoaded", function () {
@@ -31,7 +40,7 @@ window.addEventListener("DOMContentLoaded", function () {
      * 0. 검증 실패 메세지 출력화면 초기화
      * 1. 필수 항목 검증
      * 2. 일정 추가
-     *
+     * 3. 양식 초기화
      */
     try {
       // 0. 검증 실패 메세지 출력화면 초기화
@@ -42,6 +51,8 @@ window.addEventListener("DOMContentLoaded", function () {
           el.classList.add("dn");
         }
       }
+
+      const formData = {};
 
       // 1. 유효성 검사 S
       const requiredFields = {
@@ -62,14 +73,26 @@ window.addEventListener("DOMContentLoaded", function () {
             JSON.stringify({ field, message: "현재 날짜 이후로 입력하세요." })
           );
         }
+
+        // 입력 데이터 추가
+        formData[field] = value;
       }
 
       // 1. 유효성 검사 E
+
+      // 2. 작업 등록
+      const { title, deadline, description } = formData;
+      todo.add(title, description, deadline);
+
+      // 3. 양식 초기화
+      frmTodo.title.value = "";
+      frmTodo.deadline.value = "";
+      frmTodo.description.value = "";
+
+      frmTodo.title.focus();
     } catch (err) {
       const { field, message } = JSON.parse(err.message);
       const el = document.getElementById(`error-${field}`);
-
-      console.log(err.message, el);
 
       if (el) {
         el.innerText = message;
