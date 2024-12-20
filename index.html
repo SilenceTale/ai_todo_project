@@ -39,14 +39,19 @@
 
     <ul class="items"></ul>
 
-        <script type="text/html" id="tpl">
-            <li class="item" data-seq="#{seq}">
-                <div class="tit-wrap">
-                    <span class="date">#{deadline}</span>
-                    <span class="tit">#{title}</span>
-                </div>
-                <div class="description">#{description}</div>
-            </li>
-        </script>
-    </body>
+    <script type="text/html" id="tpl">
+      <li class="item">
+        <div class="tit-wrap">
+          <span class="date">#{deadline}</span>
+          <span class="tit">#{title}</span>
+        </div>
+        <div class="description">
+            #{description}
+            <button type="button" class="remove">
+                <i class="xi-close"></i>
+            </button>
+        </div>
+      </li>
+    </script>
+  </body>
 </html>

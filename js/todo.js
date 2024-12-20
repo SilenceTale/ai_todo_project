@@ -1,7 +1,8 @@
 const todo = {
   tpl: null,
   items: [], // 작업 목록
-  // 초기에 실행할 영역역
+
+  // 초기에 실행할 영역
   init() {
     // 템플릿 HTML 추출
     this.tpl = document.getElementById("tpl").innerHTML;
@@ -24,25 +25,36 @@ const todo = {
     // 화면 갱신
     this.render();
   },
-
   // 작업 목록 출력, 갱신
   render() {
     const itemsEl = document.querySelector(".items");
     itemsEl.innerHTML = "";
 
     const domParser = new DOMParser();
-    
+
     for (const { seq, title, description, deadline } of this.items) {
       let html = this.tpl;
       html = html
         .replace(/#{seq}/g, seq)
         .replace(/#{title}/g, title)
-        .replace(/#{description}/g, description)
+        .replace(/#{description}/g, description.replace(/\n/g, "<br>"))
         .replace(/#{deadline}/g, deadline);
 
       const dom = domParser.parseFromString(html, "text/html");
-      console.log(dom);
+      const itemEl = dom.querySelector("li");
+      itemsEl.append(itemEl);
+
+      const titWrapEl = itemEl.querySelector(".tit-wrap");
+      titWrapEl.addEventListener("click", function() {
+        todo.accodianView(this.parentElement);
+      });
     }
+  },
+  accodianView(el) {
+    const itemsEl = document.querySelector(".items > .item");
+    this.items.forEach((item) => item.classList.remove("on"));
+    
+    el.classList.add("on");
   },
 };
 
