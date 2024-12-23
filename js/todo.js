@@ -8,9 +8,10 @@ const todo = {
     // 템플릿 HTML 추출
     this.tpl = document.getElementById("tpl").innerHTML;
 
-    // 저장된 작업 목록 조회
+    // 저장된 작업 목록 조회 및 출력
     const data = localStorage.getItem("todos");
-    if (data) { // if (data) 만약 데이타가 있다면면
+    if (data) {
+      // if (data) 만약 데이타가 있다면면
       this.items = JSON.parse(data); // JSON파일의 데이터를 조회하겠다.
     }
 
@@ -21,7 +22,7 @@ const todo = {
     const seq = Date.now();
     this.items.push({ seq, title, description, deadline, done: false });
 
-    this.save(); // 추가된 작업 저장장
+    this.save(); // 추가된 작업 저장
 
     this.render(); // 화면 갱신
   },
@@ -33,7 +34,7 @@ const todo = {
     // splice로 해당 순서 번호 항목 제거
     this.items.splice(index, 1);
 
-    this.save() // 작업 목록 저장장
+    this.save(); // 작업 목록 저장장
 
     // 화면 갱신
     this.render();
@@ -45,12 +46,12 @@ const todo = {
 
     const domParser = new DOMParser();
 
-    const items = this.itemsSearched.length > 0
+    const items = this.itemsSearched ? this.itemsSearched : this.items;
 
-    for (const { seq, title, description, deadline, done } of this.items) {
+    for (const { seq, title, description, deadline, done } of items) {
       let html = this.tpl;
-      const checkedTrue = done ? " checked":"";
-      const checkedFalse= done ? "": " checked";
+      const checkedTrue = done ? " checked" : "";
+      const checkedFalse = done ? "" : " checked";
 
       html = html
         .replace(/#{seq}/g, seq)
@@ -59,7 +60,7 @@ const todo = {
         .replace(/#{deadline}/g, deadline)
         .replace(/#{checkedTrue}/g, checkedTrue)
         .replace(/#{checkedFalse}/g, checkedFalse)
-        .replace(/#{addClass}/g, done ? " done":"");
+        .replace(/#{addClass}/g, done ? " done" : "");
 
       const dom = domParser.parseFromString(html, "text/html");
       const itemEl = dom.querySelector("li");
@@ -72,17 +73,17 @@ const todo = {
 
       // 삭제 처리
       const removeEl = itemEl.querySelector(".remove");
-      removeEl.addEventListener("click", function() {
+      removeEl.addEventListener("click", function () {
         if (confirm("정말 삭제하시겠습니까?")) {
           todo.remove(seq);
         }
       });
 
       // 작업 완료(checkedTrue), 작업중(checkedFalse) 처리
-      const doneEls = document.getElementsByName("done");
-      const itemIndex = this.items.findIndex(item => item.seq === seq);
+      const doneEls = document.getElementsByName(`done_${seq}`);
+      const itemIndex = this.items.findIndex((item) => item.seq === seq);
       for (const el of doneEls) {
-        el.addEventListener("click", function() {
+        el.addEventListener("click", function () {
           const done = this.value === "true";
           todo.items[itemIndex].done = done;
           todo.render();
@@ -102,23 +103,26 @@ const todo = {
   save() {
     const data = JSON.stringify(this.items);
     localStorage.setItem("todos", data);
+    this.itemsSearched = null;
+    frmSearch.skey.value = "";
   },
   // 정렬
-  sort(field, order) { // sort 메서드 추가
+  sort(field, order) {
+    // sort 메서드 추가
     this.items.sort((item1, item2) => {
-       switch(field) { //switch&case문 사용
-        case "dealine":
+      switch (field) { //switch&case문 사용
+        case "deadline":
           let gap = new Date(item2.deadline) - new Date(item1.deadline);
-          return order === "desc" ? gap: -gap;
+          return order === "desc" ? gap : -gap;
         default:
           return order == "desc"
-           ? item2.seq - item1.seq 
-           : item1.seq - item2.seq;
-       }
+            ? item2.seq - item1.seq
+            : item1.seq - item2.seq;
+      }
     });
 
     this.render();
-  }
+  },
 };
 
 window.addEventListener("DOMContentLoaded", function () {
@@ -197,8 +201,22 @@ window.addEventListener("DOMContentLoaded", function () {
 
   // 작업 목록 정렬 처리 S
   frmSearch.sort.addEventListener("change", function () {
-    const { field, order } = this.value.split("_");
+    const [field, order] = this.value.split("_");
     todo.sort(field, order);
   });
   // 작업 목록 정렬 처리 E
+
+  // 키워드 검색 처리 S
+  frmSearch.skey.addEventListener("change", function () {
+    const skey = this.value.trim();
+    todo.itemsSearched = skey
+      ? todo.items.filter(
+          ({ title, description }) =>
+            title.includes(skey) || description.includes(skey)
+        )
+      : null;
+
+    todo.render();
+  });
+  // 키워드 검색 처리 E
 });
