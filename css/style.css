@@ -9,13 +9,13 @@
 }
 /* 공통 E */
 
-/* 할 일 목록 S */
+/* 할일 목록 S */
 .items > .item .description {
   display: none;
 }
 
 .items > .item.on .description {
-  display:block;
+  display: block;
 }
 
-/* 할 일 목록 E */
+/* 할일 목록 E */
