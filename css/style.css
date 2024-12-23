@@ -1,114 +1,136 @@
 @import url("https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 /* 공통 S */
+
+/* 모든 요소에 기본 스타일을 적용 */
 * {
-  font-family: "Jua", serif;
-  box-sizing: border-box;
-  color: #000;
-  outline: none;
+  font-family: "Jua", serif; /* 기본 폰트는 Jua, serif 계열 */
+  box-sizing: border-box; /* 모든 요소에 대해 box-sizing을 border-box로 설정 */
+  color: #000; /* 텍스트 색상을 검정으로 설정 */
+  outline: none; /* 요소가 선택되었을 때 외곽선 제거 */
 }
 
+/* html 요소에 기본 스타일 적용 */
 html {
-  font-size: 13px; /* 1rem = 13px */
-  background: #f8f8f8;
+  font-size: 13px; /* 기본 폰트 크기 설정, 1rem = 13px */
+  background: #f8f8f8; /* 배경 색상은 밝은 회색 */
 }
 
+/* main 요소에 스타일을 적용 */
 main {
-  max-width: 650px;
-  min-width: 450px;
-  margin: 40px auto;
-  background: #fff;
-  border-radius: 25px;
-  padding: 35px;
-  box-shadow: 2px 2px 10px #333;
+  max-width: 650px; /* 최대 너비 650px */
+  min-width: 450px; /* 최소 너비 450px */
+  margin: 40px auto; /* 상하 여백 40px, 좌우 자동으로 중앙 정렬 */
+  background: #fff; /* 배경은 흰색 */
+  border-radius: 25px; /* 모서리 둥글게 */
+  padding: 35px; /* 안쪽 여백 35px */
+  box-shadow: 2px 2px 10px #333; /* 그림자 효과 */
 }
 
+/* 링크에 기본 스타일 적용 */
 a {
-  text-decoration: none;
+  text-decoration: none; /* 링크에 밑줄 제거 */
 }
 
+/* 이미지에 기본 스타일 적용 */
 img {
-  border: 0;
+  border: 0; /* 이미지에 테두리 제거 */
 }
 
+/* 목록 관련 요소에 기본 스타일 적용 */
 ul,
 li,
 dl,
 dt,
 dd {
-  margin: 0;
-  padding: 0;
+  margin: 0; /* 기본 마진 제거 */
+  padding: 0; /* 기본 패딩 제거 */
 }
 
+/* li 목록 스타일 제거 */
 li {
-  list-style: none;
+  list-style: none; /* 목록 스타일(점)을 제거 */
 }
 
+/* .dn 클래스를 사용하여 숨김 처리 */
 .dn {
-  display: none !important;
+  display: none !important; /* 강제로 요소 숨기기 */
 }
 
+/* 입력 필드와 선택 필드 스타일 설정 */
 input[type="text"],
 input[type="date"],
 select {
-  border: 1px solid #ccc;
-  height: 45px;
-  border-radius: 3px;
-  padding: 0 10px;
-  font-size: 1.5rem;
-  width: 100%;
+  border: 1px solid #ccc; /* 경계선 색상 설정 */
+  height: 45px; /* 높이 설정 */
+  border-radius: 3px; /* 모서리 둥글게 */
+  padding: 0 10px; /* 좌우 여백 10px */
+  font-size: 1.5rem; /* 폰트 크기 설정 */
+  width: 100%; /* 너비 100% */
 }
 
+/* select 요소에 추가 스타일 적용 */
 select {
-  padding: 0;
+  padding: 0; /* 패딩 제거 */
 }
 
+/* 텍스트 영역 스타일 설정 */
 textarea {
-  border: 1px solid #ccc;
-  height: 200px;
-  width: 100%;
-  resize: none;
-  padding: 10px;
-  border-radius: 3px;
+  border: 1px solid #ccc; /* 경계선 색상 설정 */
+  height: 200px; /* 높이 200px */
+  width: 100%; /* 너비 100% */
+  resize: none; /* 크기 조정 불가 */
+  padding: 10px; /* 안쪽 여백 10px */
+  border-radius: 3px; /* 모서리 둥글게 */
 }
 
+/* h1 요소 스타일 설정 */
 h1 {
-  border-bottom: 3px solid #000;
-  padding-bottom: 7px;
-  margin: 0 0 30px;
+  border-bottom: 3px solid #000; /* 아래쪽에 두꺼운 검정 선 */
+  padding-bottom: 7px; /* 아래쪽 여백 7px */
+  margin: 0 0 30px; /* 상단 여백 0px, 하단 여백 30px */
 }
 
 /* 공통 E */
 
 /* 할일 등록 양식 S */
+
+/* 두 번째 할일 등록 양식에 마진 추가 */
 #frmTodo dl + dl {
-  margin-top: 10px;
+  margin-top: 10px; /* 두 번째 dl 요소에 위쪽 마진 10px */
 }
 
+/* dt 요소 스타일 설정 */
 #frmTodo dt {
-  margin-bottom: 5px;
-  font-size: 1.15rem;
+  margin-bottom: 5px; /* 아래쪽 마진 5px */
+  font-size: 1.15rem; /* 폰트 크기 설정 */
 }
 
+/* 오류 메시지 스타일 */
 .error {
-  color: #8789f7;
-  padding: 5px 10px;
-  margin: 5px 0;
-  box-shadow: 2px 2px 5px #8789f7;
-  border-radius: 2px;
+  color: #8789f7; /* 텍스트 색상은 보라색 */
+  padding: 5px 10px; /* 여백 설정 */
+  margin: 5px 0; /* 상하 마진 설정 */
+  box-shadow: 2px 2px 5px #8789f7; /* 그림자 효과 */
+  border-radius: 2px; /* 모서리 둥글게 */
 }
+
 /* 할일 등록 양식 E */
 
 /* 할일 목록 S */
+
+/* 작업 항목 설명을 숨김 */
 .items > .item .description {
-  display: none;
+  display: none; /* 기본적으로 숨김 */
 }
 
+/* 작업 항목에 'on' 클래스가 있을 때 설명 표시 */
 .items > .item.on .description {
-  display: block;
+  display: block; /* 'on' 클래스가 있을 때 설명을 표시 */
 }
 
+/* 완료된 작업 항목에 취소선 추가 */
 .items > .item.done {
-  text-decoration: line-through;
+  text-decoration: line-through; /* 완료된 작업은 취소선 표시 */
 }
 
 /* 할일 목록 E */
