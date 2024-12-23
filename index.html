@@ -37,19 +37,48 @@
       <button type="submit">등록하기</button>
     </form>
 
+    <form name="frmSearch" class="search-box">
+      정렬:
+      <select name="sort"> <!--value 안에 필드명_오름차순(내림차순)으로 정보 기입-->
+        <option value="seq_asc">등록 순서(오름차순)</option>
+        <option value="seq_desc">최신 등록 순서(내림차순)</option>
+        <option value="deadline_esc">마감일(오름차순)</option>
+        <option value="deadline_dasc">마감일(내림차순)</option>
+      </select>
+    </form>
     <ul class="items"></ul>
 
     <script type="text/html" id="tpl">
-      <li class="item" data-seq="#{seq}">
+      <li class="item#{addClass}" data-seq="#{seq}">
         <div class="tit-wrap">
           <span class="date">#{deadline}</span>
           <span class="tit">#{title}</span>
         </div>
         <div class="description">
           #{description}
-          <button type="button" class="remove" date-seq="#{seq}">
-            <i class="xi-close"></i>
-          </button>
+
+          <div class="controls">
+            <div class="done-wrap">
+              <input type="radio"
+                name="done" 
+                 value="true" 
+                id="done-true"
+                #{checkedTrue}
+               />
+              <label for="done-true">작업 완료</label>
+              <input type="radio" 
+                name="done" 
+                value="false" 
+                id="done-false"
+                #{checkedFalse}
+              />
+              <label for="done-false">작업 중</label>
+            </div>
+            <button type="button" class="remove">
+              <i class="xi-close"></i>
+            </button>
+          </div>
+          <!--// controls -->  
         </div>
       </li>
     </script>

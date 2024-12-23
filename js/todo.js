@@ -1,6 +1,7 @@
 const todo = {
   tpl: null,
   items: [], // 작업 목록
+  itemsSearched: [], // 검색된 작업 목록
 
   // 초기에 실행할 영역
   init() {
@@ -44,13 +45,19 @@ const todo = {
 
     const domParser = new DOMParser();
 
-    for (const { seq, title, description, deadline } of this.items) {
+    for (const { seq, title, description, deadline, done } of this.items) {
       let html = this.tpl;
+      const checkedTrue = done ? " checked":"";
+      const checkedFalse= done ? "": " checked";
+
       html = html
         .replace(/#{seq}/g, seq)
         .replace(/#{title}/g, title)
         .replace(/#{description}/g, description.replace(/\n/g, "<br>"))
-        .replace(/#{deadline}/g, deadline);
+        .replace(/#{deadline}/g, deadline)
+        .replace(/#{checkedTrue}/g, checkedTrue)
+        .replace(/#{checkedFalse}/g, checkedFalse)
+        .replace(/#{addClass}/g, done ? " done":"");
 
       const dom = domParser.parseFromString(html, "text/html");
       const itemEl = dom.querySelector("li");
@@ -65,10 +72,20 @@ const todo = {
       const removeEl = itemEl.querySelector(".remove");
       removeEl.addEventListener("click", function() {
         if (confirm("정말 삭제하시겠습니까?")) {
-          const { seq } = this.dataset;
           todo.remove(seq);
         }
-      })
+      });
+
+      // 작업 완료(checkedTrue), 작업중(checkedFalse) 처리
+      const doneEls = document.getElementsByName("done");
+      const itemIndex = this.items.findIndex(item => item.seq === seq);
+      for (const el of doneEls) {
+        el.addEventListener("click", function() {
+          const done = this.value === "true";
+          todo.items[itemIndex].done = done;
+          todo.render();
+        });
+      }
     }
   },
   accodianView(el) {
@@ -84,6 +101,22 @@ const todo = {
     const data = JSON.stringify(this.items);
     localStorage.setItem("todos", data);
   },
+  // 정렬
+  sort(field, order) { // sort 메서드 추가
+    this.items.sort((item1, item2) => {
+       switch(field) { //switch&case문 사용
+        case "dealine":
+          let gap = new Date(item2.deadline) - new Date(item1.deadline);
+          return order === "desc" ? gap: -gap;
+        default:
+          return order == "desc"
+           ? item2.seq - item1.seq 
+           : item1.seq - item2.seq;
+       }
+    });
+
+    this.render();
+  }
 };
 
 window.addEventListener("DOMContentLoaded", function () {
@@ -159,4 +192,11 @@ window.addEventListener("DOMContentLoaded", function () {
       }
     }
   });
+
+  // 작업 목록 정렬 처리 S
+  frmSearch.sort.addEventListener("change", function () {
+    const { field, order } = this.value.split("_");
+    todo.sort(field, order);
+  });
+  // 작업 목록 정렬 처리 E
 });
