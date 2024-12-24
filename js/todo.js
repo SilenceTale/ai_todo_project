@@ -78,7 +78,8 @@ const todo = {
       // 삭제 처리
       const removeEl = itemEl.querySelector(".remove"); // 삭제 버튼을 클릭했을 때 처리
       removeEl.addEventListener("click", function () {
-        if (confirm("정말 삭제하시겠습니까?")) { // 삭제 확인
+        if (confirm("정말 삭제하시겠습니까?")) {
+          // 삭제 확인
           todo.remove(seq); // 삭제 실행
         }
       });
@@ -118,7 +119,9 @@ const todo = {
   sort(field, order) {
     // field(정렬 기준), order(오름차순/내림차순)에 따라 정렬
     this.items.sort((item1, item2) => {
-      switch (field) { // 필드별로 정렬 방법을 처리
+      switch (
+        field // 필드별로 정렬 방법을 처리
+      ) {
         case "deadline":
           let gap = new Date(item2.deadline) - new Date(item1.deadline); // 날짜를 비교하여 차이 계산
           return order === "desc" ? gap : -gap; // 내림차순/오름차순 처리

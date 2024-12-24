@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- 문서 유형을 정의합니다. HTML5 문서임을 명시 -->
+<!-- 문서 유형을 정의의. HTML 문서임을 명시 -->
 <html>
   <head>
     <!-- 문서의 메타데이터와 스타일, 스크립트 등을 포함하는 부분 -->
@@ -24,8 +24,8 @@
   <body>
     <!-- 본문 콘텐츠를 포함하는 부분 -->
     <main>
-      <!-- 할일 제목을 출력하는 큰 제목 -->
-      <h1>나의 할일</h1>
+      <!-- 할 일 제목을 출력하는 큰 제목 -->
+      <h1>나의 할 일</h1>
 
       <!-- 할일 등록 폼 -->
       <form id="frmTodo" name="frmTodo" autocomplete="off">
@@ -69,13 +69,10 @@
         <button type="submit">등록하기</button>
       </form>
 
-      <!-- 할일 검색 및 정렬 폼 -->
+      <!-- 할일 검색 -->
       <form name="frmSearch" class="search-box">
         <!-- 검색어 입력 필드 -->
         <input type="text" name="skey" placeholder="검색어 입력" />
-
-        <!-- 정렬 옵션 선택 -->
-        정렬:
         <select name="sort">
           <option value="seq_asc">등록순서(오름차순)</option>
           <!-- 등록순서 오름차순 -->
@@ -103,7 +100,7 @@
           </div>
 
           <div class="description">
-            #{description}
+            <div class='content'>#{description}</div>
             <!-- 작업 내용 표시 -->
 
             <!-- 작업 완료/진행 상태 및 삭제 버튼 -->
