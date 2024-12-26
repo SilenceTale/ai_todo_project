@@ -92,6 +92,7 @@ const todo = {
           const done = this.value === "true"; // 체크된 상태에 따라 완료 여부 설정
           todo.items[itemIndex].done = done; // 완료 상태 업데이트
           todo.render(); // 화면 갱신
+          todo.save();
         });
       }
     }
